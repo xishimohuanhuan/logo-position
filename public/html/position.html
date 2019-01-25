@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>主页</title>
+		<link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+		<script src="/libs/requirejs/require.min.js" data-main= "/js/position/position.js"></script>
+		<style type="text/css">
+			.swiper-container {
+				width: 600px;
+				height: 300px;
+			} 
+		</style>
+	</head>
+	<body>
+		<!-- 导航条 -->
+		<div class="container">
+		   <header>
+			   
+		   </header>
+			 <!-- 添加按钮 -->
+			 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">添加职位</button>
+			 
+			 <!-- 显示列表的内容-->
+			<table class="table table-bordered table-stripped">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>LOGO</th>
+						<th>公司名称</th>
+						<th>职位名称</th>
+						<th>地址</th>
+						<th>薪资</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+			 	<tbody class="list-body">
+			 		
+			 	</tbody>
+			</table>
+			
+			<!-- 分页 -->
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
+					<li>
+						<a href="##" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li><a href="##" class="btn-page">1</a></li>
+					<li><a href="##" class="btn-page">2</a></li>
+					<li><a href="##" class="btn-page">3</a></li>
+					<li><a href="##" class="btn-page">4</a></li>
+					<li><a href="##" class="btn-page">5</a></li>
+					<li>
+						<a href="##" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		 
+		</div><!-- /.container-fluid -->
+		
+		<!-- 职位渲染的模板 -->
+		<script type="text/html" id="list-template">
+			{{each list item index}}
+			<tr data-id="{{item._id}}">
+				<td>{{index + 1}}</td>
+				<td ><img class="logo" src="{{item.logo}}"></td>
+				<td class="company">{{item.company}}</td>
+				<td class="position">{{item.position}}</td>
+				<td class="address">{{item.address}}</td>
+				<td class="salary">{{item.salary}}</td>
+				<td>
+						<a href="##" class="btn-update" data-toggle="modal" data-target="#updateModal">修改</a>
+						<a href="##">删除</a>
+				</td>
+				</tr>
+				{{/each}}
+		</script>
+		
+		<!-- 添加职位的模态框 -->
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addpositionModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="addModalLabel">职位信息</h4>
+			</div>
+			<div class="modal-body">
+				<form class="position-add">
+				<div class="form-group">
+					<label for="positionUsername">公司logo</label>
+					<input type="file" name="logo" class="form-control"  id="positionlogo">
+				</div>
+				<div class="form-group">
+					<label for="position">职位名称</label>
+					<input type="text" class="form-control" name="position" id="position" placeholder="输入职位名">
+				</div>
+				<div class="form-group">
+					<label for="company">公司名称</label>
+					<input type="text" class="form-control" name="company" id="company" placeholder="输入公司名称">
+				</div>
+				<div class="form-group">
+					<label for="positionexperi">工作经验</label>
+					<input type="text" class="form-control" id="positionexperi" placeholder="输入工作经验">
+				</div>
+				<div class="form-group">
+					<label for="positionclass">职位类型</label>
+					<input type="text" class="form-control" id="positionclass" placeholder="输入职位名称">
+				</div>
+				<div class="form-group">
+					<label for="address">工作地点</label>
+					<input type="text" class="form-control" name="address" id="address" placeholder="输入工作地址">
+				</div>
+				<div class="form-group">
+					<label for="salary">岗位薪资</label>
+					<input type="text" class="form-control" name="salary" id="salary" placeholder="输入岗位薪资">
+				</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary btn-position">添加职位</button>
+			</div>
+			</div>
+		</div>
+		</div>
+		
+		<!-- 修改职位的模态框 -->
+		<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updatepositionModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="updateModalLabel">修改职位信息</h4>
+			</div>
+			<div class="modal-body">
+				<form class="position-update">
+					<input type="hidden" name="_id" id="update-hidden"/>
+				<div class="form-group">
+					<label for="positionUsername">公司logo<span class="logo-url"></span></label>
+					<input type="file" name="logo" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="company">公司名称</label>
+					<input type="text" class="form-control company-name" name="company"  placeholder="输入公司名称">
+				</div>
+				<div class="form-group">
+					<label for="position">职位名称</label>
+					<input type="text" class="form-control position-name" name="position"  placeholder="输入职位">
+				</div>
+				<div class="form-group">
+					<label for="address">工作地点</label>
+					<input type="text" class="form-control address-add" name="address" placeholder="输入工作地址">
+				</div>
+				<div class="form-group">
+					<label for="salary">岗位薪资</label>
+					<input type="text" class="form-control salary-ma" name="salary" placeholder="输入岗位薪资">
+				</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary btn-position">修改成功</button>
+			</div>
+			</div>
+		</div>
+		</div>
+		
+	</body>
+</html>
